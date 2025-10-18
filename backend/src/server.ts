@@ -16,7 +16,14 @@ connectDB();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.com'] 
+    ? (origin, callback) => {
+        // Allow any Vercel domain or your custom domain
+        if (!origin || origin.endsWith('.vercel.app') || origin === 'https://your-custom-domain.com') {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
     : ['http://localhost:3000'],
   credentials: true
 }));
