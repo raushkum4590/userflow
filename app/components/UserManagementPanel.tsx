@@ -130,20 +130,20 @@ const UserManagementPanel = ({
             <label className="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
               Hobbies
             </label>
-            <div className="flex gap-2 mb-2 lg:mb-3">
+            <div className="flex gap-2 mb-2 lg:mb-3 items-center">
               <input
                 type="text"
                 value={newHobby}
                 onChange={(e) => setNewHobby(e.target.value)}
-                className="flex-1 px-3 py-2 lg:px-4 lg:py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white shadow-md transition-all duration-200 text-sm lg:text-base hover:shadow-lg text-gray-900 placeholder:text-gray-400"
+                className="flex-1 px-3 py-2 lg:px-4 lg:py-2.5 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white shadow-md transition-all duration-200 text-sm lg:text-base hover:shadow-lg text-gray-900 placeholder:text-gray-400"
                 placeholder="Add hobby"
                 onKeyPress={(e) => e.key === 'Enter' && handleAddHobby()}
               />
               <button
                 onClick={handleAddHobby}
-                className="px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-bold text-xs lg:text-sm"
+                className="flex-shrink-0 px-4 py-2 lg:px-6 lg:py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:from-purple-600 hover:to-pink-600 transition-colors duration-200 shadow-md hover:shadow-lg font-bold text-sm"
               >
-                ➕ Add
+                ➕
               </button>
             </div>
             <div className="flex flex-wrap gap-1 lg:gap-2">

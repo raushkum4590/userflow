@@ -144,35 +144,6 @@ const UserNetworkFlow = ({
           color="#c4b5fd"
           className="opacity-30"
         />
-        
-        <Panel position="top-right" className="bg-gradient-to-br from-white/95 to-purple-50/95 backdrop-blur-lg border-2 border-purple-200/50 rounded-2xl shadow-2xl p-5">
-          <div className="text-sm">
-            <div className="font-bold text-lg mb-3 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center">
-              📊 Network Stats
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg px-3 py-2 border border-emerald-200/50">
-                <span className="font-medium text-gray-700">👥 Users:</span>
-                <span className="font-bold text-emerald-600">{nodes.length}</span>
-              </div>
-              <div className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg px-3 py-2 border border-purple-200/50">
-                <span className="font-medium text-gray-700">🔗 Connections:</span>
-                <span className="font-bold text-purple-600">{edges.length}</span>
-              </div>
-            </div>
-            <div className="mt-4 text-xs text-gray-700 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 border-2 border-blue-300/50">
-              <div className="font-bold mb-2 text-sm text-purple-700">🔗 Connect Users:</div>
-              <div className="bg-white/60 rounded p-2 text-center">
-                <div className="text-lg font-bold text-purple-600 mb-1">
-                  Drag ⭕ → ⭕ Drop
-                </div>
-                <div className="text-xs text-gray-600">
-                  From bottom circle to top circle
-                </div>
-              </div>
-            </div>
-          </div>
-        </Panel>
       </ReactFlow>
       
       {isConnecting && (
