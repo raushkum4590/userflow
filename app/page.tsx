@@ -17,10 +17,8 @@ interface User {
 }
 
 
-// Use relative path for Vercel deployment, falls back to localhost for local dev with separate backend
-const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-  ? '/api' 
-  : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+// Backend is deployed separately on Vercel
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backenduserflow.vercel.app/api';
 
 function HomeContent() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);

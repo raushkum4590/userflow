@@ -44,7 +44,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Backend API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Backend API is running',
@@ -53,7 +61,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // GET all users
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     await connectDB();
     const users = await User.find().populate('friends', 'username age hobbies popularityScore');
@@ -71,7 +79,7 @@ app.get('/api/users', async (req, res) => {
 });
 
 // GET graph data
-app.get('/api/users/graph', async (req, res) => {
+app.get('/users/graph', async (req, res) => {
   try {
     await connectDB();
     const users = await User.find().populate('friends', 'username age hobbies popularityScore');
@@ -120,7 +128,7 @@ app.get('/api/users/graph', async (req, res) => {
 });
 
 // POST create user
-app.post('/api/users', async (req, res) => {
+app.post('/users', async (req, res) => {
   try {
     await connectDB();
     const { username, age, hobbies } = req.body;
@@ -172,7 +180,7 @@ app.post('/api/users', async (req, res) => {
 });
 
 // PUT update user
-app.put('/api/users/:id', async (req, res) => {
+app.put('/users/:id', async (req, res) => {
   try {
     await connectDB();
     const { id } = req.params;
@@ -215,7 +223,7 @@ app.put('/api/users/:id', async (req, res) => {
 });
 
 // DELETE user
-app.delete('/api/users/:id', async (req, res) => {
+app.delete('/users/:id', async (req, res) => {
   try {
     await connectDB();
     const { id } = req.params;
@@ -252,7 +260,7 @@ app.delete('/api/users/:id', async (req, res) => {
 });
 
 // POST create friendship
-app.post('/api/users/:id/link', async (req, res) => {
+app.post('/users/:id/link', async (req, res) => {
   try {
     await connectDB();
     const { id } = req.params;
@@ -316,7 +324,7 @@ app.post('/api/users/:id/link', async (req, res) => {
 });
 
 // DELETE remove friendship
-app.delete('/api/users/:id/unlink', async (req, res) => {
+app.delete('/users/:id/unlink', async (req, res) => {
   try {
     await connectDB();
     const { id } = req.params;
