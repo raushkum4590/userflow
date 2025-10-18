@@ -40,7 +40,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to fetch graph data');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to connect to server');
     } finally {
       setLoading(false);
@@ -83,7 +83,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to create user');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to create user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -104,7 +104,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to update user');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to update user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -123,7 +123,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to delete user');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to delete user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -144,7 +144,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to connect users');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to connect users');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -165,7 +165,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to disconnect users');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to disconnect users');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -177,11 +177,6 @@ function HomeContent() {
       handleUsersConnect(connection.source, connection.target);
     }
   }, [handleUsersConnect]);
-
-  // Handle node clicks
-  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
-    console.log('Node clicked:', node);
-  }, []);
 
   // Handle hobby drag
   const handleHobbyDrag = useCallback((hobby: string) => {
@@ -281,7 +276,6 @@ function HomeContent() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onNodeClick={onNodeClick}
             onHobbyDrop={handleHobbyDrop}
           />
         </div>

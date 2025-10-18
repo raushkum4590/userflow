@@ -12,10 +12,10 @@ import ReactFlow, {
   Edge,
   Node,
   NodeTypes,
-  ReactFlowProvider,
   Panel,
-  MarkerType,
   ConnectionMode,
+  NodeChange,
+  EdgeChange,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -31,8 +31,8 @@ const nodeTypes: NodeTypes = {
 interface UserNetworkFlowProps {
   nodes: Node[];
   edges: Edge[];
-  onNodesChange: (changes: any) => void;
-  onEdgesChange: (changes: any) => void;
+  onNodesChange: (changes: NodeChange[]) => void;
+  onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
   onNodeClick?: (event: React.MouseEvent, node: Node) => void;
   onHobbyDrop?: (nodeId: string, hobby: string) => void;
@@ -44,10 +44,8 @@ const UserNetworkFlow = ({
   onNodesChange,
   onEdgesChange,
   onConnect,
-  onNodeClick,
   onHobbyDrop,
 }: UserNetworkFlowProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [dragOverNode, setDragOverNode] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -77,15 +75,6 @@ const UserNetworkFlow = ({
     }
     setDragOverNode(null);
   }, [dragOverNode, onHobbyDrop]);
-
-  const handleNodeDragOver = useCallback((event: React.DragEvent, nodeId: string) => {
-    event.preventDefault();
-    setDragOverNode(nodeId);
-  }, []);
-
-  const handleNodeDragLeave = useCallback(() => {
-    setDragOverNode(null);
-  }, []);
 
   // Simple connection handlers
   const onConnectStart = useCallback(() => {
@@ -187,15 +176,6 @@ const UserNetworkFlow = ({
           </div>
         </Panel>
       </ReactFlow>
-      
-      {isLoading && (
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 flex items-center space-x-4 border-2 border-purple-200">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-3 border-purple-600"></div>
-            <span className="text-gray-700 font-semibold text-lg">Updating network...</span>
-          </div>
-        </div>
-      )}
       
       {isConnecting && (
         <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none">
