@@ -4,11 +4,10 @@ import { useState, useMemo } from 'react';
 
 interface HobbySidebarProps {
   allHobbies: string[];
-  onHobbyDrag: (hobby: string) => void;
   onHobbySearch: (searchTerm: string) => void;
 }
 
-const HobbySidebar = ({ allHobbies, onHobbyDrag, onHobbySearch }: HobbySidebarProps) => {
+const HobbySidebar = ({ allHobbies, onHobbySearch }: HobbySidebarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [draggedHobby, setDraggedHobby] = useState<string | null>(null);
 
@@ -100,7 +99,7 @@ const HobbySidebar = ({ allHobbies, onHobbyDrag, onHobbySearch }: HobbySidebarPr
               No hobbies found
             </div>
             <div className="text-gray-500 text-sm">
-              matching "{searchTerm}"
+              matching &quot;{searchTerm}&quot;
             </div>
           </div>
         )}

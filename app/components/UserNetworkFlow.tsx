@@ -1,13 +1,11 @@
 'use client';
 
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
   Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
+  BackgroundVariant,
   Connection,
   Edge,
   Node,
@@ -140,7 +138,7 @@ const UserNetworkFlow = ({
         />
         
         <Background 
-          variant="dots" 
+          variant={BackgroundVariant.Dots} 
           gap={16} 
           size={2} 
           color="#c4b5fd"

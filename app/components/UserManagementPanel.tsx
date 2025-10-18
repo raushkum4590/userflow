@@ -15,8 +15,6 @@ interface UserManagementPanelProps {
   onUserCreate: (userData: Omit<User, '_id' | 'popularityScore'>) => void;
   onUserUpdate: (id: string, userData: Partial<User>) => void;
   onUserDelete: (id: string) => void;
-  onUsersConnect: (userId1: string, userId2: string) => void;
-  onUsersDisconnect: (userId1: string, userId2: string) => void;
 }
 
 const UserManagementPanel = ({
@@ -24,8 +22,6 @@ const UserManagementPanel = ({
   onUserCreate,
   onUserUpdate,
   onUserDelete,
-  onUsersConnect,
-  onUsersDisconnect,
 }: UserManagementPanelProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);

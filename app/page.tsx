@@ -6,7 +6,7 @@ import 'reactflow/dist/style.css';
 import UserNetworkFlow from './components/UserNetworkFlow';
 import HobbySidebar from './components/HobbySidebar';
 import UserManagementPanel from './components/UserManagementPanel';
-import { Node, Connection } from 'reactflow';
+import { Connection } from 'reactflow';
 
 interface User {
   _id: string;
@@ -40,7 +40,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to fetch graph data');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to connect to server');
     } finally {
       setLoading(false);
@@ -83,7 +83,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to create user');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to create user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -104,7 +104,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to update user');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to update user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -123,7 +123,7 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to delete user');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to delete user');
     }
   }, [fetchUsers, fetchGraphData]);
@@ -144,29 +144,8 @@ function HomeContent() {
       } else {
         setError(data.message || 'Failed to connect users');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to connect users');
-    }
-  }, [fetchUsers, fetchGraphData]);
-
-  // Disconnect users
-  const handleUsersDisconnect = useCallback(async (userId1: string, userId2: string) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/users/${userId1}/unlink`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ friendId: userId2 }),
-      });
-      
-      const data = await response.json();
-      if (data.success) {
-        await fetchUsers();
-        await fetchGraphData();
-      } else {
-        setError(data.message || 'Failed to disconnect users');
-      }
-    } catch (_err) {
-      setError('Failed to disconnect users');
     }
   }, [fetchUsers, fetchGraphData]);
 
@@ -177,11 +156,6 @@ function HomeContent() {
       handleUsersConnect(connection.source, connection.target);
     }
   }, [handleUsersConnect]);
-
-  // Handle hobby drag
-  const handleHobbyDrag = useCallback((hobby: string) => {
-    console.log('Dragging hobby:', hobby);
-  }, []);
 
   // Handle hobby drop on node
   const handleHobbyDrop = useCallback(async (nodeId: string, hobby: string) => {
@@ -263,7 +237,6 @@ function HomeContent() {
         <div className="lg:order-1">
           <HobbySidebar
             allHobbies={allHobbies}
-            onHobbyDrag={handleHobbyDrag}
             onHobbySearch={handleHobbySearch}
           />
         </div>
@@ -287,8 +260,6 @@ function HomeContent() {
             onUserCreate={handleUserCreate}
             onUserUpdate={handleUserUpdate}
             onUserDelete={handleUserDelete}
-            onUsersConnect={handleUsersConnect}
-            onUsersDisconnect={handleUsersDisconnect}
           />
         </div>
       </div>
