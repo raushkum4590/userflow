@@ -18,7 +18,7 @@ interface User {
 
 
 // Backend is deployed separately on Vercel
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backenduserflow.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-raushkum4590s-projects.vercel.app/api';
 
 function HomeContent() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
