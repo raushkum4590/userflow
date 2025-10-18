@@ -13,6 +13,11 @@ import {
   getGraphData
 } from '../backend/src/controllers/userController';
 
+// Extend VercelRequest to include params like Express Request
+interface ExtendedRequest extends VercelRequest {
+  params?: Record<string, string>;
+}
+
 // Database connection
 let cachedDb: typeof mongoose | null = null;
 
@@ -38,7 +43,7 @@ async function connectDB() {
 }
 
 // Main handler
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ExtendedRequest, res: VercelResponse) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -83,14 +88,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // PUT /api/users/:id
     if (path.match(/^\/api\/users\/[^\/]+$/) && method === 'PUT') {
       const id = path.split('/').pop();
-      req.params = { id: id || '' };
+      (req as ExtendedRequest).params = { id: id || '' };
       return await updateUser(req as any, res as any);
     }
 
     // DELETE /api/users/:id
     if (path.match(/^\/api\/users\/[^\/]+$/) && method === 'DELETE' && !path.includes('/link')) {
       const id = path.split('/').pop();
-      req.params = { id: id || '' };
+      (req as ExtendedRequest).params = { id: id || '' };
       return await deleteUser(req as any, res as any);
     }
 
@@ -98,7 +103,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (path.match(/^\/api\/users\/[^\/]+\/link$/) && method === 'POST') {
       const parts = path.split('/');
       const id = parts[parts.length - 2];
-      req.params = { id: id || '' };
+      (req as ExtendedRequest).params = { id: id || '' };
       return await createFriendship(req as any, res as any);
     }
 
@@ -106,7 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (path.match(/^\/api\/users\/[^\/]+\/unlink$/) && method === 'DELETE') {
       const parts = path.split('/');
       const id = parts[parts.length - 2];
-      req.params = { id: id || '' };
+      (req as ExtendedRequest).params = { id: id || '' };
       return await removeFriendship(req as any, res as any);
     }
 
